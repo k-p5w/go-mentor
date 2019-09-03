@@ -1,0 +1,52 @@
+    /* https://bennettfeely.com/flexplorer/ */
+    
+    .head-flex {
+        display: flex;
+        flex-flow: row wrap;
+    }
+    
+    .flex-container {
+        /* 親コンテナ */
+        display: flex;
+        -webkit-flex-flow: row wrap;
+        flex-flow: row wrap;
+    }
+    
+    .flex-item {
+        /* 子アイテム */
+        flex: 1 0 auto;
+        /* 丸みの設定←いい感じの丸み */
+        border-radius: 15px;
+        /* 背景色の設定 */
+        background: rgb(230, 226, 226);
+        /* 線の模様 */
+        border-style: unset;
+        /* 余白 */
+        margin: 0.5em;
+        padding: 0.5em;
+    }
+    
+    .a {
+        align-self: flex-end;
+    }
+    
+    .ghost-button {
+        background: black;
+        color: white;
+        border: 1px solid gray;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        padding: 1rem;
+        outline: none;
+        width: 100pt;
+    }
+    
+    .tbl-view {
+        border: 1px solid gray;
+    }
+    
+    td {
+        border: 1px solid silver;
+        overflow: auto;
+    }

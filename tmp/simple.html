@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- <meta charset="shift_jis"> -->
+    <meta charset="UTF-8">
+    <title>golang</title>
+    <!-- 静的ファイルをリンクする -->
+    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="/data/main.css">
+</head>
+
+<body>
+
+
+    <header class="head-flex">
+
+        <form action=/get method=get onsubmit="send.disabled = true;send.value ='実行中'">
+
+            <input class="ghost-button" type="submit" name="send" value="再表示(get)">
+
+        </form>
+
+        <input class="ghost-button" type="button" name="allview" value="ALL表示">
+
+    </header>
+
+    <section>
+
+        <div class="flex-container">
+
+            {{range $index, $list := .Data}}
+            <article>
+                <div class="flex-item">
+                    {{$list.Title}}
+                    <a href={{$list.Urltxt}} target="_blank" rel="noopener">詳細表示</a>
+
+                </div>
+            </article>
+            {{end}}
+
+        </div>
+    </section>
+
+
+
+</body>
+
+</html>
