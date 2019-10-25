@@ -4,25 +4,22 @@
 <head>
     <!-- <meta charset="shift_jis"> -->
     <meta charset="UTF-8">
-    <title>golang</title>
+    <title>{{.Title}}</title>
     <!-- 静的ファイルをリンクする -->
     <link rel="stylesheet" href="./main.css">
     <link rel="stylesheet" href="/data/main.css">
 </head>
 
 <body>
-
-
     <header class="head-flex">
 
-        <form action=/get method=get onsubmit="send.disabled = true;send.value ='実行中'">
 
-            <input class="ghost-button" type="submit" name="send" value="再表示(get)">
-
+        <form>
+            <label for="item">いくつ表示する？</label>
+            <input class="ghost-button" type="submit" formaction="/get" formmethod="GET" name="item" value="10">
+            <input class="ghost-button" type="submit" formaction="/get" formmethod="GET" name="item" value="1">
+            <input class="ghost-button " type="submit" formaction="/" formmethod="GET" name="all" value="一覧表示">
         </form>
-
-        <input class="ghost-button" type="button" name="allview" value="ALL表示">
-
     </header>
 
     <section>
@@ -31,11 +28,12 @@
 
             {{range $index, $list := .Data}}
             <article>
-                <div class="flex-item">
+                <div class={{$list.Rank}}>
                     {{$list.Title}}
                     <a href={{$list.Urltxt}} target="_blank" rel="noopener">詳細表示</a>
 
                 </div>
+
             </article>
             {{end}}
 

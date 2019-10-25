@@ -16,14 +16,43 @@
         /* 子アイテム */
         flex: 1 0 auto;
         /* 丸みの設定←いい感じの丸み */
-        border-radius: 15px;
-        /* 背景色の設定 */
-        background: rgb(230, 226, 226);
-        /* 線の模様 */
-        border-style: unset;
+        /* border-radius: 15px; */
         /* 余白 */
         margin: 0.5em;
         padding: 0.5em;
+    }
+    
+    .card-gold {
+        /* 丸みの設定←いい感じの丸み */
+        border-radius: 20px;
+        border: 3px solid gold;
+    }
+    
+    .card-silver {
+        /* 丸みの設定←いい感じの丸み */
+        border-radius: 10px;
+        border: 3px solid silver;
+    }
+    
+    .card-bronze {
+        /* 丸みの設定←いい感じの丸み */
+        border-radius: 5px;
+        border: 3px solid brown;
+    }
+    
+    .card-common {
+        /* 丸みの設定←いい感じの丸み */
+        border-radius: 1px;
+        /* 背景色の設定 */
+        border: 3px dotted darkolivegreen;
+        /* 線の模様 */
+    }
+    
+    .card-secret {
+        /* 丸みの設定←いい感じの丸み */
+        border-radius: 0px;
+        /* 線の模様 */
+        border: 1px double red;
     }
     
     .a {
@@ -37,9 +66,11 @@
         border-radius: 4px;
         cursor: pointer;
         text-decoration: none;
-        padding: 1rem;
         outline: none;
         width: 100pt;
+        /* 余白 */
+        margin: 0.5em;
+        padding: 0.5em;
     }
     
     .tbl-view {
@@ -49,4 +80,49 @@
     td {
         border: 1px solid silver;
         overflow: auto;
+    }
+    
+    #myInput {
+        background-image: url('/css/searchicon.png');
+        /* Add a search icon to input */
+        background-position: 10px 12px;
+        /* Position the search icon */
+        background-repeat: no-repeat;
+        /* Do not repeat the icon image */
+        width: 80%;
+        /* Full-width */
+        font-size: 16px;
+        /* Increase font-size */
+        padding: 12px 20px 12px 40px;
+        /* Add some padding */
+        border: 1px solid #ddd;
+        /* Add a grey border */
+        margin-bottom: 12px;
+        /* Add some space below the input */
+    }
+    
+    #govItems {
+        /* Remove default list styling */
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    #govItems li a {
+        border: 1px solid #ddd;
+        /* Add a border to all links */
+        margin-top: -1px;
+        /* Prevent double borders */
+        background-color: #f6f6f6;
+        /* Grey background color */
+        padding: 12px;
+        /* Add some padding */
+        text-decoration: none;
+        /* Remove default text underline */
+        font-size: 18px;
+        /* Increase the font-size */
+        color: black;
+        /* Add a black text color */
+        display: block;
+        /* Make it into a block element to fill the whole list */
     }

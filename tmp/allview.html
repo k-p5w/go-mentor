@@ -8,6 +8,8 @@
     <!-- 静的ファイルをリンクする -->
     <link rel="stylesheet" href="./main.css">
     <link rel="stylesheet" href="/data/main.css">
+    <script src='/data/main.js'></script>
+    <script src='./main.js'></script>
 </head>
 
 <body>
@@ -17,15 +19,19 @@
 
         <form action=/get method=get onsubmit="send.disabled = true;send.value ='実行中'">
 
-            <input class="ghost-button" type="submit" name="send" value="再表示(get)">
+            <input class="ghost-button" type="submit" name="send" value="再表示(/get)">
 
         </form>
-
-        <input class="ghost-button" type="button" name="allview" value="ALL表示">
-
+        <form action=/ method=get onsubmit="send.disabled = true;send.value ='実行中'">
+            <input class="ghost-button" type="button" name="allview" value="ALL表示">
+        </form>
     </header>
 
     <section>
+        <!-- テーブルモード
+        <form action="/Search" method=get>
+            <input type="text" autocomplete="off" class="list_search" placeholder="Search for articles..." tabindex="1" name="q" value="">
+        </form>
 
         <div class="tbl-view">
             <article>
@@ -52,8 +58,21 @@
 
 
             </article>
+ -->
+        <article>
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+            <div>
+                <ul id="govItems">
+                    {{range $index, $list := .Data}}
 
+                    <li>
+                        <a href={{$list.Urltxt}} target="_blank" rel="noopener">[{{$list.Point}}]{{$list.Title}}</a>
+                    </li>
 
+                    {{end}}
+                </ul>
+            </div>
+        </article>
         </div>
     </section>
 

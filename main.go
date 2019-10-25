@@ -1,17 +1,21 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"log"
 	"math/rand"
 	"net/http"
 	"os"
+	"sort"
+	"strconv"
 	"time"
 )
 
 // Resultitem is 結果表示用
 type Resultitem struct {
-	Data []Clippage
+	Title string
+	Data  []Clippage
 }
 
 // AllItem is 全件の格納用
@@ -23,6 +27,8 @@ type AllItem struct {
 type Clippage struct {
 	Title  string
 	Urltxt string
+	Rank   string
+	Point  int
 }
 
 // Allpageinfo is 全データ
@@ -37,9 +43,10 @@ func main() {
 
 	fs := http.FileServer(http.Dir("./tmp"))
 
-	http.HandleFunc("/get", viewHandler) // mentor初期画面
-	http.HandleFunc("/", initHandler)    // mentor初期画面
+	http.HandleFunc("/get", viewHandler)
+
 	http.Handle("/data/", http.StripPrefix("/data/", fs))
+	http.HandleFunc("/", initHandler)
 
 	// HEROKUで動かすためにポートは取り出すようにする
 	port := os.Getenv("PORT")
@@ -53,7 +60,7 @@ func main() {
 // initHandler is 初期表示
 func initHandler(w http.ResponseWriter, r *http.Request) {
 
-	page := Resultitem{Allpageinfo}
+	page := Resultitem{"～初期表示～", Allpageinfo}
 	//HTMLを読み込む
 	tmpl, err := template.ParseFiles("./tmp/allview.html") // ParseFilesを使う
 	if err != nil {
@@ -71,6 +78,19 @@ func viewHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("viewHandler-go!")
 	// 表の表示件数
 	maxitem := 10
+
+	// getパラメータの解析
+	q := r.URL.Query()
+	getval := q.Get("item")
+	if len(getval) > 0 {
+		newval, _ := strconv.Atoi(getval)
+		// 最大件数未満なら書き換える
+		if newval <= maxitem {
+			maxitem = newval
+		}
+
+	}
+
 	choisdata := make([]Clippage, maxitem)
 	selected := make([]int, maxitem)
 	selitem := 0
@@ -92,6 +112,8 @@ func viewHandler(w http.ResponseWriter, r *http.Request) {
 			}
 			return false
 		}
+		// 見つかるたびにポイントを加算していく
+		Allpageinfo[idx].Point++
 		// 同じ値が存在していればやり直し
 		if IsItemExists(idx) {
 			continue
@@ -99,6 +121,7 @@ func viewHandler(w http.ResponseWriter, r *http.Request) {
 		// 配列にアイテムをセットする
 		choisdata[selitem].Title = Allpageinfo[idx].Title
 		choisdata[selitem].Urltxt = Allpageinfo[idx].Urltxt
+		choisdata[selitem].Rank = getRank(idx)
 
 		selected[selitem] = idx
 		selitem++
@@ -109,7 +132,7 @@ func viewHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	page := Resultitem{choisdata}
+	page := Resultitem{"ランダム表示", choisdata}
 	//HTMLを読み込む
 	tmpl, err := template.ParseFiles("./tmp/simple.html") // ParseFilesを使う
 	if err != nil {
@@ -120,4 +143,44 @@ func viewHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+// getRank is ランクを返す
+func getRank(index int) string {
+	// 表示した回数をもとにランキング化して色を設定する
+	ret := "flex-item card-common"
+	rank3 := "flex-item card-bronze"
+	rank2 := "flex-item card-silver"
+	rank1 := "flex-item card-gold"
+	rank0 := "flex-item card-secret"
+	max := len(Allpageinfo) - 1
+	// コピーして並び替える
+	sortdata := make([]Clippage, len(Allpageinfo))
+	cLen := copy(sortdata, Allpageinfo)
+	fmt.Println(cLen) // 5
+
+	sort.Slice(sortdata, func(i, j int) bool {
+		return sortdata[i].Point > sortdata[j].Point
+	})
+
+	// 1-3位のポイント以上ある？
+	if sortdata[0].Point <= Allpageinfo[index].Point {
+		ret = rank1
+	} else {
+		if sortdata[1].Point <= Allpageinfo[index].Point {
+			ret = rank2
+		} else {
+			if sortdata[2].Point <= Allpageinfo[index].Point {
+				ret = rank3
+			} else {
+				// 最下位の場合
+				if sortdata[max].Point == (Allpageinfo[index].Point-1) {
+					ret = rank0
+				}
+			}
+		}
+
+	}
+
+	return ret
 }
