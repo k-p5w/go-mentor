@@ -37,13 +37,15 @@ var Allpageinfo []Clippage
 // main is メイン表示用の関数
 func main() {
 
+	// 政府広報オンライン
 	url := "https://www.gov-online.go.jp/useful/index.html"
-	// htmlを読み込んで一覧を作る
+	// htmlを読み込んで全件一覧を作る（！スクレイピング）
 	Allpageinfo = readhtmlpage(url)
 
 	fs := http.FileServer(http.Dir("./tmp"))
 
 	http.HandleFunc("/get", viewHandler)
+	http.HandleFunc("/on", BorderHandler)
 
 	http.Handle("/data/", http.StripPrefix("/data/", fs))
 	http.HandleFunc("/", initHandler)
@@ -174,7 +176,7 @@ func getRank(index int) string {
 				ret = rank3
 			} else {
 				// 最下位の場合
-				if sortdata[max].Point == (Allpageinfo[index].Point-1) {
+				if sortdata[max].Point == (Allpageinfo[index].Point - 1) {
 					ret = rank0
 				}
 			}
@@ -183,4 +185,10 @@ func getRank(index int) string {
 	}
 
 	return ret
+}
+
+// BorderHandler is トリガーオンしたときの動き
+func BorderHandler(w http.ResponseWriter, r *http.Request) {
+
+	//
 }

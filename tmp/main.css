@@ -18,8 +18,8 @@
         /* 丸みの設定←いい感じの丸み */
         /* border-radius: 15px; */
         /* 余白 */
-        margin: 0.5em;
-        padding: 0.5em;
+        margin: .1em;
+        padding: .1em;
     }
     
     .card-gold {
@@ -55,7 +55,7 @@
         border: 1px double red;
     }
     
-    .a {
+    a {
         align-self: flex-end;
     }
     
@@ -94,6 +94,7 @@
         font-size: 16px;
         /* Increase font-size */
         padding: 12px 20px 12px 40px;
+        margin: .2em;
         /* Add some padding */
         border: 1px solid #ddd;
         /* Add a grey border */
@@ -104,8 +105,8 @@
     #govItems {
         /* Remove default list styling */
         list-style-type: none;
-        padding: 0;
-        margin: 0;
+        margin: .1em;
+        padding: .1em;
     }
     
     #govItems li a {
@@ -125,4 +126,48 @@
         /* Add a black text color */
         display: block;
         /* Make it into a block element to fill the whole list */
+    }
+    
+    .pill-nav a {
+        /* 上部のナビメニュー 参考：https://www.w3schools.com/howto/howto_css_pill_nav.asp*/
+        display: inline-block;
+        color: black;
+        text-align: center;
+        padding: 14px;
+        text-decoration: none;
+        font-size: 17px;
+        /* 丸み */
+        border-radius: 10px;
+        margin: .2em;
+    }
+    /* Change the color of links on mouse-over */
+    
+    .pill-nav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+    /* Add a color to the active/current link */
+    
+    .pill-nav a.active {
+        background-color: black;
+        color: white;
+    }
+    
+    .remarks {
+        /* 凡例表示用 */
+        border: .5px double darkred;
+        /* 余白 */
+        margin: .5em;
+        padding: .5em;
+    }
+    
+    .remarks h3 {
+        /* 余白 */
+        margin: .1em;
+        padding: .1em;
+    }
+    
+    .remarks div {
+        margin: .1em;
+        padding: .1em;
     }

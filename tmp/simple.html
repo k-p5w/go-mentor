@@ -12,18 +12,21 @@
 
 <body>
     <header class="head-flex">
+        <div class="pill-nav">
+            <a class="active" href="#メインページ">Home</a>
+            <a href="/get">ランダム表示</a>
+            <a href="/trion">トリオン判定</a>
+        </div>
 
+    </header>
 
+    <section>
         <form>
             <label for="item">いくつ表示する？</label>
             <input class="ghost-button" type="submit" formaction="/get" formmethod="GET" name="item" value="10">
             <input class="ghost-button" type="submit" formaction="/get" formmethod="GET" name="item" value="1">
             <input class="ghost-button " type="submit" formaction="/" formmethod="GET" name="all" value="一覧表示">
         </form>
-    </header>
-
-    <section>
-
         <div class="flex-container">
 
             {{range $index, $list := .Data}}

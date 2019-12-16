@@ -14,53 +14,17 @@
 
 <body>
 
-
-    <header class="head-flex">
-
-        <form action=/get method=get onsubmit="send.disabled = true;send.value ='実行中'">
-
-            <input class="ghost-button" type="submit" name="send" value="再表示(/get)">
-
-        </form>
-        <form action=/ method=get onsubmit="send.disabled = true;send.value ='実行中'">
-            <input class="ghost-button" type="button" name="allview" value="ALL表示">
-        </form>
+    <header>
+        <div class="pill-nav">
+            <a class="active" href="#メインページ">Home</a>
+            <a href="/get">ランダム表示</a>
+            <a href="/trion">トリオン判定</a>
+        </div>
     </header>
 
     <section>
-        <!-- テーブルモード
-        <form action="/Search" method=get>
-            <input type="text" autocomplete="off" class="list_search" placeholder="Search for articles..." tabindex="1" name="q" value="">
-        </form>
-
-        <div class="tbl-view">
-            <article>
-                <table>
-                    <th>
-                        記事名
-                    </th>
-                    <th>
-                        リンク
-                    </th>
-                    {{range $index, $list := .Data}}
-                    <tr>
-                        <td>
-                            {{$list.Title}}
-                        </td>
-                        <td>
-                            <a href={{$list.Urltxt}} target="_blank" rel="noopener">詳細表示</a>
-                        </td>
-                    </tr>
-                    {{end}}
-                </table>
-
-
-
-
-            </article>
- -->
         <article>
-            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="こちらから検索できます.">
             <div>
                 <ul id="govItems">
                     {{range $index, $list := .Data}}
@@ -76,7 +40,17 @@
         </div>
     </section>
 
+    <footer class="head-flex">
 
+        <form action=/get method=get onsubmit="send.disabled = true;send.value ='実行中'">
+
+            <input class="ghost-button" type="submit" name="send" value="再表示(/get)">
+
+        </form>
+        <form action=/ method=get onsubmit="send.disabled = true;send.value ='実行中'">
+            <input class="ghost-button" type="button" name="allview" value="ALL表示">
+        </form>
+    </footer>
 
 </body>
 
